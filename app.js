@@ -37,7 +37,7 @@ const play = () => {
     let vies = totalVies;
     console.log(randomNumber);
 
-//Actualisation à chaque essai -Toute la logique
+    //Actualisation à chaque essai -Toute la logique
 
     formulaire.addEventListener('submit', (e) => {     // e = l'élement actuel sur lequel se déroule l'évènement
         e.preventDefault()  // pour éviter que cela recharge la page à chaque fois lors de l'envoie du formulaire
@@ -51,13 +51,38 @@ const play = () => {
             rejouerBtn.style.display= "block";
         }
 
-        if(valeurInput !==randomNumber){
-
-            
+        if(valeurInput !== randomNumber){ // 2x "=" après un ! = valeur ET type.  1x=  = juste valeur. Pas possible de mettre !===
+            if(randomNumber < valeurInput + 3 && randomNumber > valeurInput - 3 ){
+                body.style.backgroundImage = bgBrulant;
+                message.textContent = "C'est Brûlant !!!";
+            }
+            else if (randomNumber < valeurInput + 6 && randomNumber > valeurInput - 6 ){
+                body.style.backgroundImage = bgChaud;
+                message.textContent = "C'est Chaud !";
+            }
+            else if (randomNumber < valeurInput + 11 && randomNumber > valeurInput - 11 ){
+                body.style.backgroundImage = bgTiede;
+                message.textContent = "C'est tiède.";
+            }
+            else{
+                body.style.backgroundImage = bgFroid;
+                message.textContent = "C'est Froid....";
+            }
+            vies--;
+            verifyLoose();
         }
+    })
 
+    const verifyLoose = () => {
+        if(vies === 0){
+            body.style.backgroundImage = bgLoose;
+            body.style.color = '#990000';
+            essayerBtn.setAttribute("disable", "");
+            message.textContent = `Vous avez perdu. La réponse était ${randomNumber}`;
+            rejouerBtn.style.display = "block";
+        }
+    }
 
-    });
 }
 
 
