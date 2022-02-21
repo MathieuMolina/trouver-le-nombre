@@ -26,4 +26,40 @@ const bgWin = 'linear-gradient(to top, #fcc5e4 0%, #fda34b 15%, #ff7882 35%, #c8
 
 const bgLoose = 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)';
 
-// 
+// Logique play
+
+const play = () => {
+
+    //nombre aléatoire
+    const randomNumber = Math.floor(Math.random() * 101); 
+    //Math floor prend le chiffre (de math random *101) et l'arrondie à la valeur en dessous (100 au lieu de 101)
+    const totalVies = 5;
+    let vies = totalVies;
+    console.log(randomNumber);
+
+//Actualisation à chaque essai -Toute la logique
+
+    formulaire.addEventListener('submit', (e) => {     // e = l'élement actuel sur lequel se déroule l'évènement
+        e.preventDefault()  // pour éviter que cela recharge la page à chaque fois lors de l'envoie du formulaire
+        const valeurInput = parseInt(input.value); // "3" -> 3
+
+        if(valeurInput < 0 || valeurInput > 100) return;
+
+        if(valeurInput === randomNumber){
+            body.style.backgroundImage = bgWin;
+            message.textContent = `BRAVO !! Le nombre était bien ${randomNumber}`
+            rejouerBtn.style.display= "block";
+        }
+
+        if(valeurInput !==randomNumber){
+
+            
+        }
+
+
+    });
+}
+
+
+
+
