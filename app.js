@@ -1,5 +1,5 @@
 // Elements du DOM (html)
-const divVies = document.querySelector('vies');
+const divVies = document.querySelector('.vies');
 const message = document.getElementById('message');
 const formulaire = document.getElementById('inputBox');
 const input = document.getElementById('number');
@@ -16,7 +16,7 @@ const coeurPlein = '<ion-icon name="heart"></ion-icon>';
 const bgFroid = 'linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%)';
 const bgTiede = 'linear-gradient(120deg, #fccb90 0%, #d57eeb 100%)';
 const bgChaud = 'linear-gradient(to right, #fa709a 0%, #fee140 100%)';
-const bgBrulant = 'inear-gradient(to right, #f78ca0 0%, #f9748f 19%, #fd868c 60%, #fe9a8b 100%)';
+const bgBrulant = 'linear-gradient(to right, #f78ca0 0%, #f9748f 19%, #fd868c 60%, #fe9a8b 100%)';
 
 //Fond gagnant
 
@@ -54,6 +54,7 @@ const play = () => {
         if(valeurInput !== randomNumber){ // 2x "=" après un ! = valeur ET type.  1x=  = juste valeur. Pas possible de mettre !===
             if(randomNumber < valeurInput + 3 && randomNumber > valeurInput - 3 ){
                 body.style.backgroundImage = bgBrulant;
+                console.log(bgBrulant)
                 message.textContent = "C'est Brûlant !!!";
             }
             else if (randomNumber < valeurInput + 6 && randomNumber > valeurInput - 6 ){
@@ -71,6 +72,11 @@ const play = () => {
             vies--;
             verifyLoose();
         }
+
+        actualiseCoeurs(vies);
+
+
+
     })
 
     const verifyLoose = () => {
@@ -83,8 +89,25 @@ const play = () => {
         }
     }
 
+    //Actualiser le nombre de coeur :
+
+    const actualiseCoeurs = (vies) => {
+        divVies.innerHTML = "";
+        let tableauDeVies = [];
+        for(let i = 0; i < vies; i++){
+            tableauDeVies.push(coeurPlein);
+        }
+        for(let i = 0; i < totalVies - vies; i++){
+            tableauDeVies.push(coeurVide);
+        }
+        tableauDeVies.forEach(coeur => {
+            divVies.innerHTML += coeur;
+        })
+    }
+    actualiseCoeurs(vies);
+
 }
 
-
+play();
 
 

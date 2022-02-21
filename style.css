@@ -38,14 +38,17 @@ h1{
     color: #ffc31d;
     text-shadow: var(--textShadow);
     display: inline-block;
+    font-size: 100px;;
 }
-
+p{
+    font-size: 20px;
+}
 .vies{
     margin: 10px;
 }
 
 ion-icon{
-    font-size: 50px;
+    font-size: 80px;
     fill: red;
 }
 
@@ -91,6 +94,6 @@ p#message{
 
 #details{
     font-weight: bold;
-    font-size: 6px;
+    font-size: 15px;
     margin-top: 5px;
 }
