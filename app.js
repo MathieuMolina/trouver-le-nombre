@@ -13,6 +13,7 @@ const coeurVide = '<ion-icon name="heart-outline"></ion-icon>';
 const coeurPlein = '<ion-icon name="heart"></ion-icon>';
 
 //Fond
+const bgStart= `linear-gradient(120deg, #d4fc79 0%, #96e6a1 100%)`;
 const bgFroid = 'linear-gradient(120deg, #a1c4fd 0%, #c2e9fb 100%)';
 const bgTiede = 'linear-gradient(120deg, #fccb90 0%, #d57eeb 100%)';
 const bgChaud = 'linear-gradient(to right, #fa709a 0%, #fee140 100%)';
@@ -35,7 +36,6 @@ const play = () => {
     //Math floor prend le chiffre (de math random *101) et l'arrondie à la valeur en dessous (100 au lieu de 101)
     const totalVies = 5;
     let vies = totalVies;
-    console.log(randomNumber);
 
     //Actualisation à chaque essai -Toute la logique
 
@@ -47,14 +47,14 @@ const play = () => {
 
         if(valeurInput === randomNumber){
             body.style.backgroundImage = bgWin;
-            message.textContent = `BRAVO !! Le nombre était bien ${randomNumber}`
+            message.textContent = `BRAVO !! Le nombre était bien ${randomNumber} !`
             rejouerBtn.style.display= "block";
+            essayerBtn.setAttribute("disable", "");
         }
 
         if(valeurInput !== randomNumber){ // 2x "=" après un ! = valeur ET type.  1x=  = juste valeur. Pas possible de mettre !===
             if(randomNumber < valeurInput + 3 && randomNumber > valeurInput - 3 ){
                 body.style.backgroundImage = bgBrulant;
-                console.log(bgBrulant)
                 message.textContent = "C'est Brûlant !!!";
             }
             else if (randomNumber < valeurInput + 6 && randomNumber > valeurInput - 6 ){
@@ -83,8 +83,8 @@ const play = () => {
         if(vies === 0){
             body.style.backgroundImage = bgLoose;
             body.style.color = '#990000';
-            essayerBtn.setAttribute("disable", "");
-            message.textContent = `Vous avez perdu. La réponse était ${randomNumber}`;
+            essayerBtn.setAttribute("disabled", "");
+            message.textContent = `Vous avez perdu... La réponse était ${randomNumber}`;
             rejouerBtn.style.display = "block";
         }
     }
@@ -106,8 +106,43 @@ const play = () => {
     }
     actualiseCoeurs(vies);
 
+    rejouerBtn.addEventListener('click', () => {
+        //document.location.reload(true);
+        reset();
+        play();
+
+    })
+
+    function reset(){
+        //Fonction qui prépare tout pour rejouer une fois le jeu terminé, redéclarer 5 vie, enlever l'attribut disabled, display none bouton rejouer.
+
+        essayerBtn.removeAttribute("disabled");
+        rejouerBtn.style.display = "none";
+        input.value = "";
+        body.style.backgroundImage = bgStart;
+        message.textContent = ""
+
+    }
 }
+
+
 
 play();
 
 
+
+
+
+
+
+//                           A RAJOUTER :
+
+// Empecher de faire une erreur si le meme chiffre est répété plus d'une fois.
+// personnaliser le site, déco etc..
+// Animations visuelles pour victoire/défaite.
+// Choix de difficulté / nombre de vie. (Un mode hardcore/roulette russe avec une seule vie ? (avec le/les coeurs disposés en barillet?))
+// 
+// 
+
+// responsive.
+// déployement serveur.
